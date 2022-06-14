@@ -12,19 +12,7 @@ const Home: NextPage = () => {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
 
-            <main className={styles.main}>
-                <h1 className={styles.title}>QRdrop</h1>
-            </main>
-
-            <footer className={styles.footer}>
-                <a
-                    href="https://rainbow.me"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    Made with ❤️ by your frens at 🌈
-                </a>
-            </footer>
+            <h1 className="">QRdrop</h1>
         </div>
     );
 };

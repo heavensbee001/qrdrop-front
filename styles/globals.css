@@ -18,3 +18,13 @@ a {
 * {
     box-sizing: border-box;
 }
+
+.bg-app {
+    background: repeating-linear-gradient(
+        -45deg,
+        #b7ff5c,
+        #b7ff5c 40px,
+        #fff 40px,
+        #fff 80px
+    );
+}
