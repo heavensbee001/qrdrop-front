@@ -1,5 +1,6 @@
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { NextComponentType } from "next";
+import Image from "next/image";
 
 export const ConnectButtonCustom: NextComponentType = () => {
     return (
@@ -28,11 +29,21 @@ export const ConnectButtonCustom: NextComponentType = () => {
                             if (!mounted || !account || !chain) {
                                 return (
                                     <button
-                                        className="w-full bg-pink text-white py-3 roboto-font"
+                                        className="relative w-full bg-pink text-white py-3 roboto-font"
                                         onClick={openConnectModal}
                                         type="button"
                                     >
-                                        Connect Wallet
+                                        <span className="relative">
+                                            Connect Wallet
+                                            <div className="absolute -right-12 animate-bounce">
+                                                <Image
+                                                    src="/images/hand_cursor.svg"
+                                                    alt="cursor"
+                                                    width={33}
+                                                    height={43}
+                                                />
+                                            </div>
+                                        </span>
                                     </button>
                                 );
                             }
@@ -44,7 +55,7 @@ export const ConnectButtonCustom: NextComponentType = () => {
                                         type="button"
                                         className="w-full bg-pink text-white py-3 roboto-font"
                                     >
-                                        Wrong network
+                                        <span>Wrong network</span>
                                     </button>
                                 );
                             }
