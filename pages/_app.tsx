@@ -54,7 +54,6 @@ function MyApp({ Component, pageProps }: AppProps) {
                     accentColor: "#FF4588",
                     accentColorForeground: "white",
                     borderRadius: "none",
-                    // fontStack: "system",
                 })}
             >
                 <Layout>

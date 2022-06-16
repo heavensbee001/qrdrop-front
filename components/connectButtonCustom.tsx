@@ -28,7 +28,7 @@ export const ConnectButtonCustom: NextComponentType = () => {
                             if (!mounted || !account || !chain) {
                                 return (
                                     <button
-                                        className="w-full bg-pink text-white py-3"
+                                        className="w-full bg-pink text-white py-3 roboto-font"
                                         onClick={openConnectModal}
                                         type="button"
                                     >
@@ -42,7 +42,7 @@ export const ConnectButtonCustom: NextComponentType = () => {
                                     <button
                                         onClick={openChainModal}
                                         type="button"
-                                        className="w-full bg-pink text-white py-3"
+                                        className="w-full bg-pink text-white py-3 roboto-font"
                                     >
                                         Wrong network
                                     </button>

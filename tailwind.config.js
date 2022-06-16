@@ -9,6 +9,7 @@ module.exports = {
             colors: {
                 pink: "#FF4588",
                 lime: "#B7FF5C",
+                orange: "#FF9345",
             },
         },
     },

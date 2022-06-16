@@ -9,7 +9,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 <div className="pt-12"></div>
                 {children}
             </main>
-            <footer className="fixed bottom-0 w-full bg-black text-white bv-font text-center">
+            <footer className="fixed bottom-0 w-full bg-black text-white roboto-font text-center">
                 <p>
                     made by&nbsp;
                     <a
