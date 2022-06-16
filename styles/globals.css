@@ -28,3 +28,8 @@ a {
         #fff 80px
     );
 }
+
+/* font configuration */
+.roboto-font {
+    font-family: "Roboto Slab", serif;
+}
