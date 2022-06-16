@@ -7,6 +7,7 @@ import styles from "../styles/Home.module.css";
 
 const Home: NextPage = () => {
     const [accountReady, setAccountReady] = useState(false);
+    const [activeForm, setActiveForm] = useState(false);
     const { data: account } = useAccount();
 
     console.log(account);
@@ -15,7 +16,9 @@ const Home: NextPage = () => {
         setAccountReady(Boolean(account));
     }, [account]);
 
-    const handleClickAddPoap = () => {};
+    const handleClickAddPoap = () => {
+        setActiveForm(!activeForm);
+    };
     return (
         <div className={styles.container}>
             <Head>
@@ -29,29 +32,41 @@ const Home: NextPage = () => {
             </section>
             <div
                 className={`relative w-4/5 h-12 flex mx-auto ${
-                    accountReady ? "bg-orange" : "bg-gray-300"
+                    accountReady ? "bg-orange cursor-pointer" : "bg-gray-300"
                 }`}
+                onClick={handleClickAddPoap}
             >
                 <div
-                    className={`absolute h-full w-12 h-12 z-2 flex justify-center items-center text-white font-bold text-2xl ${
-                        accountReady ? "bg-orange" : "bg-gray-300"
+                    className={`absolute w-full h-12 bottom-0 ease-in-out duration-200 ${
+                        activeForm ? "h-64" : ""
                     }`}
                 >
-                    +
-                </div>
-                <div
-                    className={`bg-white border-orange ${
-                        accountReady ? "cursor-pointer" : "border-gray-300"
-                    } border-4 border-l-0 w-full flex justify-center items-center roboto-font`}
-                    onClick={handleClickAddPoap}
-                >
-                    <span
-                        className={`${
-                            accountReady ? "text-orange" : "text-gray-300"
+                    <div
+                        className={`absolute h-full w-12 h-12 z-2 flex justify-center items-center text-white font-bold text-2xl ${
+                            accountReady ? "bg-orange" : "bg-gray-300"
                         }`}
                     >
-                        Create POAP
-                    </span>
+                        <span
+                            className={`ease-in-out duration-200 ${
+                                activeForm ? "rotate-45 translate-x-0.5" : ""
+                            }`}
+                        >
+                            +
+                        </span>
+                    </div>
+                    <div
+                        className={`bg-white ${
+                            accountReady ? "border-orange" : "border-gray-300"
+                        } border-4 w-full flex justify-center roboto-font h-full`}
+                    >
+                        <span
+                            className={`ease-in-out duration-200 mt-2 ${
+                                accountReady ? "text-orange" : "text-gray-300"
+                            }`}
+                        >
+                            Create POAP
+                        </span>
+                    </div>
                 </div>
             </div>
         </div>
