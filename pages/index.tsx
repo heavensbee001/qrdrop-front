@@ -11,15 +11,15 @@ const Home: NextPage = () => {
     const [activeForm, setActiveForm] = useState(false);
     const { data: account } = useAccount();
 
-    console.log(account);
-
     useEffect(() => {
         setAccountReady(Boolean(account));
+        if (!account) setActiveForm(false);
     }, [account]);
 
     const handleClickAddPoap = () => {
-        setActiveForm(!activeForm);
+        if (account) setActiveForm(!activeForm);
     };
+
     return (
         <div className={styles.container}>
             <Head>
