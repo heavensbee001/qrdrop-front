@@ -3,6 +3,7 @@ import Head from "next/head";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import { useAccount } from "wagmi";
+import CreatePoapForm from "../components/createPoapForm";
 import styles from "../styles/Home.module.css";
 
 const Home: NextPage = () => {
@@ -34,17 +35,18 @@ const Home: NextPage = () => {
                 className={`relative w-4/5 h-12 flex mx-auto ${
                     accountReady ? "bg-orange cursor-pointer" : "bg-gray-300"
                 }`}
-                onClick={handleClickAddPoap}
+                onClick={!activeForm ? handleClickAddPoap : () => {}}
             >
                 <div
-                    className={`absolute w-full h-12 bottom-0 ease-in-out duration-200 ${
+                    className={`absolute w-full h-12 bottom-0 ease-in-out duration-200 overflow-hidden ${
                         activeForm ? "h-64" : ""
                     }`}
                 >
                     <div
-                        className={`absolute h-full w-12 h-12 z-2 flex justify-center items-center text-white font-bold text-2xl ${
+                        className={`absolute h-12 w-12 h-12 z-2 flex justify-center items-center text-white font-bold text-2xl ${
                             accountReady ? "bg-orange" : "bg-gray-300"
                         }`}
+                        onClick={activeForm ? handleClickAddPoap : () => {}}
                     >
                         <span
                             className={`ease-in-out duration-200 ${
@@ -57,15 +59,22 @@ const Home: NextPage = () => {
                     <div
                         className={`bg-white ${
                             accountReady ? "border-orange" : "border-gray-300"
-                        } border-4 w-full flex justify-center roboto-font h-full`}
+                        } border-4 w-full roboto-font h-full`}
                     >
-                        <span
-                            className={`ease-in-out duration-200 mt-2 ${
+                        <p
+                            className={`w-full ease-in-out duration-200 mt-2 mb-4 text-center ${
                                 accountReady ? "text-orange" : "text-gray-300"
                             }`}
                         >
                             Create POAP
-                        </span>
+                        </p>
+                        <div
+                            className={`overflow-hidden ${
+                                activeForm ? "" : "h-0"
+                            }`}
+                        >
+                            <CreatePoapForm active={activeForm} />
+                        </div>
                     </div>
                 </div>
             </div>
