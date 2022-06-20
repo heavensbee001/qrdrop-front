@@ -19,7 +19,6 @@ const PoapDetail: NextPage = () => {
         const canvas = document.querySelector(
             "#poap-detail canvas"
         ) as HTMLCanvasElement;
-        debugger;
         if (canvas) {
             const pngUrl = canvas
                 .toDataURL("image/png")
@@ -48,7 +47,10 @@ const PoapDetail: NextPage = () => {
                         size={300}
                     />
                 )}
-                <button onClick={downloadQr} className="mt-12">
+                <button
+                    onClick={downloadQr}
+                    className="mt-8 bg-pink text-white py-3 px-12 roboto-font"
+                >
                     Download QR
                 </button>
             </section>
