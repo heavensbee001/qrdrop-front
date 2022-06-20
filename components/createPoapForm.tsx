@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { useRouter } from "next/router";
 import { useReducer } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { useContractWrite } from "wagmi";
@@ -17,6 +18,8 @@ export default function CreatePoapForm({
     active?: boolean;
 }) {
     const [formData, setFormData] = useReducer(formReducer, {});
+    const router = useRouter();
+
     // const { data, isError, isLoading, write } = useContractWrite(
     //     {
     //         addressOrName: "0xecb504d39723b0be0e3a9aa33d646642d1051ee1",
@@ -29,11 +32,12 @@ export default function CreatePoapForm({
         e.preventDefault();
         const uuid = uuidv4();
         const poapNft = new PoapNft(formData.uri, uuid, formData.name);
-        sendNft();
+        sendNft(poapNft);
     };
 
-    const sendNft = () => {
+    const sendNft = (poapNft: PoapNft) => {
         // write();
+        router.push(`/poap/${poapNft.uuid}`);
     };
 
     return (
