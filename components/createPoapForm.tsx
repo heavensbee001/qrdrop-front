@@ -62,7 +62,7 @@ export default function CreatePoapForm({
   return (
     <form
       onSubmit={handleSubmit}
-      className="relative text-orange font-normal flex flex-col items-center h-full pt-8"
+      className="text-orange font-normal flex flex-col items-center h-full pt-8"
     >
       <div className="grid grid-cols-5 w-4/5">
         <div className="col-span-3">
@@ -88,33 +88,43 @@ export default function CreatePoapForm({
             onChange={setFormData}
           />
         </div>
-        {formData.uri && (
-          <div className="text-right col-span-2">
-            <img src={`${formData.uri}`} alt="cursor" />
+        <div className="text-right col-span-2 pl-4 -mr-6 flex items-center max-h-[240px] overflow-y-scroll h-[200px]">
+          <div
+            className="h-full w-full"
+            style={{
+              backgroundImage: "url(/images/img-bg.svg)",
+              backgroundSize: "20% 20%",
+            }}
+          >
+            {formData.uri && (
+              <img src={`${formData.uri}`} alt="cursor" className="" />
+            )}
           </div>
-        )}
+        </div>
       </div>
       <textarea
         name="description"
         placeholder="description *"
-        className="placeholder:text-orange border-b-2 border-orange w-4/5 mt-4 mb-2"
+        className="placeholder:text-orange border-b-2 border-orange w-4/5 mt-4 mb-12"
         required
         onChange={setFormData}
       />
 
-      <div className="absolute right-2 bottom-0 w-4/5 mx-auto group flex justify-end">
-        <button disabled={!active} className="flex">
-          <div className="rotate-90 group-hover:-translate-x-1">
-            <Image
-              src="/images/hand_cursor.svg"
-              alt="cursor"
-              width={33}
-              height={43}
-            />
-          </div>
-          <span className="text-lime text-3xl ml-4">add</span>
-        </button>
-      </div>
+      {active && (
+        <div className="absolute z-20 right-4 bottom-2 w-4/5 mx-auto group flex justify-end">
+          <button disabled={!active} className="flex">
+            <div className="rotate-90 group-hover:-translate-x-1">
+              <Image
+                src="/images/hand_cursor.svg"
+                alt="cursor"
+                width={33}
+                height={43}
+              />
+            </div>
+            <span className="text-lime text-3xl ml-4">add</span>
+          </button>
+        </div>
+      )}
     </form>
   );
 }
