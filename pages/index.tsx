@@ -39,11 +39,11 @@ const Home: NextPage = () => {
       >
         <div
           className={`absolute w-full h-12 bottom-0 ease-in-out duration-200 overflow-hidden ${
-            activeForm ? "h-96" : ""
+            activeForm ? "h-[440px]" : ""
           }`}
         >
           <div
-            className={`absolute h-12 w-12 h-12 z-2 flex justify-center items-center text-white font-bold text-2xl cursor-pointer ${
+            className={`z-10 absolute h-12 w-12 h-12 z-2 flex justify-center items-center text-white font-bold text-2xl cursor-pointer ${
               accountReady ? "bg-orange" : "bg-gray-300"
             }`}
             onClick={activeForm ? handleClickAddPoap : () => {}}
@@ -61,14 +61,16 @@ const Home: NextPage = () => {
               accountReady ? "border-orange" : "border-gray-300"
             } border-4 w-full roboto-font h-full overflow-y-scroll`}
           >
-            <p
-              className={`w-full ease-in-out duration-200 mt-2 mb-4 text-center ${
-                accountReady ? "text-orange" : "text-gray-300"
-              }`}
-            >
-              Create POAP
-            </p>
-            <div className={`overflow-hidden ${activeForm ? "" : "h-0"}`}>
+            {!activeForm && (
+              <p
+                className={`w-full ease-in-out duration-200 mt-2 mb-4 text-center ${
+                  accountReady ? "text-orange" : "text-gray-300"
+                }`}
+              >
+                Create POAP
+              </p>
+            )}
+            <div className={`overflow-hidden ${activeForm ? "h-full" : "h-0"}`}>
               {accountReady && <CreatePoapForm active={activeForm} />}
             </div>
           </div>

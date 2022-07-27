@@ -1,13 +1,7 @@
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { FormEvent, FormEventHandler, useEffect, useReducer } from "react";
-import { v4 as uuidv4 } from "uuid";
-import {
-  useAccount,
-  useContractEvent,
-  useContractRead,
-  useContractWrite,
-} from "wagmi";
+import { FormEvent, useReducer } from "react";
+import { useContractEvent, useContractWrite } from "wagmi";
 import { abi } from "../utils/abi/Factory.json";
 
 const formReducer = (state: any, event: any) => {
@@ -55,28 +49,51 @@ export default function CreatePoapForm({
   const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
 
-    write({ args: Object.values(formData) });
+    write({
+      args: [
+        formData.name,
+        formData.symbol,
+        formData.description,
+        formData.uri,
+      ],
+    });
   };
 
   return (
     <form
       onSubmit={handleSubmit}
-      className="text-orange font-normal flex flex-col items-center"
+      className="relative text-orange font-normal flex flex-col items-center h-full pt-8"
     >
-      <input
-        name="name"
-        placeholder="token name *"
-        className="placeholder:text-orange border-b-2 border-orange w-4/5 mt-4 mb-2"
-        required
-        onChange={setFormData}
-      />
-      <input
-        name="symbol"
-        placeholder="token symbol *"
-        className="placeholder:text-orange border-b-2 border-orange w-4/5 mt-4 mb-2"
-        required
-        onChange={setFormData}
-      />
+      <div className="grid grid-cols-5 w-4/5">
+        <div className="col-span-3">
+          <input
+            name="uri"
+            placeholder="image uri *"
+            className="placeholder:text-orange border-b-2 border-orange w-full mt-4 mb-2"
+            required
+            onChange={setFormData}
+          />
+          <input
+            name="name"
+            placeholder="token name *"
+            className="placeholder:text-orange border-b-2 border-orange w-full mt-4 mb-2"
+            required
+            onChange={setFormData}
+          />
+          <input
+            name="symbol"
+            placeholder="token symbol *"
+            className="placeholder:text-orange border-b-2 border-orange w-full mt-4 mb-2"
+            required
+            onChange={setFormData}
+          />
+        </div>
+        {formData.uri && (
+          <div className="text-right col-span-2">
+            <img src={`${formData.uri}`} alt="cursor" />
+          </div>
+        )}
+      </div>
       <textarea
         name="description"
         placeholder="description *"
@@ -84,27 +101,20 @@ export default function CreatePoapForm({
         required
         onChange={setFormData}
       />
-      <input
-        name="uri"
-        placeholder="image uri *"
-        className="placeholder:text-orange border-b-2 border-orange w-4/5 mt-4 mb-2"
-        required
-        onChange={setFormData}
-      />
-      <button
-        className="justify-end mt-4 w-4/5 mx-auto flex justify-end group"
-        disabled={!active}
-      >
-        <div className="rotate-90 group-hover:-translate-x-1">
-          <Image
-            src="/images/hand_cursor.svg"
-            alt="cursor"
-            width={33}
-            height={43}
-          />
-        </div>
-        <span className="text-lime text-3xl ml-4">add</span>
-      </button>
+
+      <div className="absolute right-2 bottom-0 w-4/5 mx-auto group flex justify-end">
+        <button disabled={!active} className="flex">
+          <div className="rotate-90 group-hover:-translate-x-1">
+            <Image
+              src="/images/hand_cursor.svg"
+              alt="cursor"
+              width={33}
+              height={43}
+            />
+          </div>
+          <span className="text-lime text-3xl ml-4">add</span>
+        </button>
+      </div>
     </form>
   );
 }
