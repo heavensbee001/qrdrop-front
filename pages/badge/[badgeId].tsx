@@ -13,14 +13,14 @@ type NftMetadata = {
   image: string;
 };
 
-const PoapDetail: NextPage = () => {
+const BadgeDetail: NextPage = () => {
   const contractParams = {
     addressOrName: process.env.NEXT_PUBLIC_CONTRACT_ADDRESS || "",
     contractInterface: abi,
   };
   const router = useRouter();
   const account = useAccount();
-  const [poapId, setPoapId] = useState("");
+  const [badgeId, setBadgeId] = useState("");
   const [addressIsCreator, setAddressIsCreator] = useState(false);
   const [nftMetadata, setNftMetadata] = useState<NftMetadata>({
     name: "",
@@ -31,10 +31,10 @@ const PoapDetail: NextPage = () => {
   const [nftExists, setNftExists] = useState(false);
 
   useEffect(() => {
-    if (router.query.poapId) setPoapId(router.query.poapId.toString());
-  }, [router.query.poapId]);
+    if (router.query.badgeId) setBadgeId(router.query.badgeId.toString());
+  }, [router.query.badgeId]);
 
-  const makePoapNFT = useContractWrite(contractParams, "makeAPoapNFT", {
+  const makeBadgeNFT = useContractWrite(contractParams, "makeABadgeNFT", {
     onError(error) {
       console.log("Error", error);
     },
@@ -44,7 +44,7 @@ const PoapDetail: NextPage = () => {
   });
 
   const isCreator = useContractRead(contractParams, "isCreator", {
-    args: [poapId, account.data?.address],
+    args: [badgeId, account.data?.address],
     onError(error) {
       console.log("Error", error);
     },
@@ -55,7 +55,7 @@ const PoapDetail: NextPage = () => {
   });
 
   const getCreatorNFT = useContractRead(contractParams, "getCreatorNFT", {
-    args: [poapId],
+    args: [badgeId],
     onError(error) {
       console.log("Error", error);
     },
@@ -69,7 +69,7 @@ const PoapDetail: NextPage = () => {
     contractParams,
     "getAddressNFTInCollection",
     {
-      args: [poapId, account.data?.address],
+      args: [badgeId, account.data?.address],
       onError(error) {
         setNftExists(false);
         console.log("Error", error);
@@ -83,8 +83,8 @@ const PoapDetail: NextPage = () => {
   );
 
   function handleClickClaim() {
-    if (!poapId) return;
-    makePoapNFT.write({ args: poapId });
+    if (!badgeId) return;
+    makeBadgeNFT.write({ args: badgeId });
   }
 
   const parseUri = (dataURI: Result) => {
@@ -98,7 +98,7 @@ const PoapDetail: NextPage = () => {
 
     // Generate download with use canvas and stream
     const canvas = document.querySelector(
-      "#poap-detail canvas"
+      "#badge-detail canvas"
     ) as HTMLCanvasElement;
     if (canvas) {
       const pngUrl = canvas
@@ -106,7 +106,7 @@ const PoapDetail: NextPage = () => {
         .replace("image/png", "image/octet-stream");
       let downloadLink = document.createElement("a");
       downloadLink.href = pngUrl;
-      downloadLink.download = `${poapId}.png`;
+      downloadLink.download = `${badgeId}.png`;
       document.body.appendChild(downloadLink);
       downloadLink.click();
       document.body.removeChild(downloadLink);
@@ -114,7 +114,7 @@ const PoapDetail: NextPage = () => {
   };
 
   return (
-    <div id="poap-detail">
+    <div id="badge-detail">
       <Head>
         <title>QRdrop POAP</title>
         <meta name="description" content="" />
@@ -122,7 +122,7 @@ const PoapDetail: NextPage = () => {
       </Head>
 
       <section>
-        {poapId && (
+        {badgeId && (
           <>
             {nftExists && nftExistsLoaded && (
               <h2 className="text-center text-purple roboto-font text-2xl font-bold mb-2">
@@ -145,7 +145,7 @@ const PoapDetail: NextPage = () => {
             {addressIsCreator && (
               <div className="flex flex-col items-center">
                 <QRCode
-                  value={`${process.env.VERCEL_URL}/poap/${poapId}`}
+                  value={`${process.env.VERCEL_URL}/badge/${badgeId}`}
                   renderAs="canvas"
                   size={300}
                   className="mb-6 hidden"
@@ -165,4 +165,4 @@ const PoapDetail: NextPage = () => {
   );
 };
 
-export default PoapDetail;
+export default BadgeDetail;

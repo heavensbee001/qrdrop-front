@@ -3,7 +3,7 @@ import Head from "next/head";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import { useAccount } from "wagmi";
-import CreatePoapForm from "../components/createPoapForm";
+import CreateBadgeForm from "../components/createBadgeForm";
 import styles from "../styles/Home.module.css";
 
 const Home: NextPage = () => {
@@ -16,7 +16,7 @@ const Home: NextPage = () => {
     if (!account) setActiveForm(false);
   }, [account]);
 
-  const handleClickAddPoap = () => {
+  const handleClickAddBadge = () => {
     if (account) setActiveForm(!activeForm);
   };
 
@@ -35,7 +35,7 @@ const Home: NextPage = () => {
         className={`relative w-4/5 h-12 flex mx-auto ${
           accountReady ? "bg-orange" : "bg-gray-300"
         } ${accountReady && !activeForm ? "cursor-pointer" : ""}`}
-        onClick={!activeForm ? handleClickAddPoap : () => {}}
+        onClick={!activeForm ? handleClickAddBadge : () => {}}
       >
         <div
           className={`absolute w-full h-12 bottom-0 ease-in-out duration-200 overflow-hidden ${
@@ -46,7 +46,7 @@ const Home: NextPage = () => {
             className={`z-10 absolute h-12 w-12 h-12 z-2 flex justify-center items-center text-white font-bold text-2xl cursor-pointer ${
               accountReady ? "bg-orange" : "bg-gray-300"
             }`}
-            onClick={activeForm ? handleClickAddPoap : () => {}}
+            onClick={activeForm ? handleClickAddBadge : () => {}}
           >
             <span
               className={`ease-in-out duration-200 ${
@@ -71,7 +71,7 @@ const Home: NextPage = () => {
               </p>
             )}
             <div className={`overflow-hidden ${activeForm ? "h-full" : "h-0"}`}>
-              {accountReady && <CreatePoapForm active={activeForm} />}
+              {accountReady && <CreateBadgeForm active={activeForm} />}
             </div>
           </div>
         </div>

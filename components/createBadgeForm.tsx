@@ -11,7 +11,7 @@ const formReducer = (state: any, event: any) => {
   };
 };
 
-export default function CreatePoapForm({
+export default function CreateBadgeForm({
   active = true,
 }: {
   active?: boolean;
@@ -42,7 +42,7 @@ export default function CreatePoapForm({
     },
     "NewCreatorNFTMinted",
     (event) => {
-      router.push(`/poap/${event[1]}`);
+      router.push(`/badge/${event[1]}`);
     }
   );
 
