@@ -151,7 +151,7 @@ const BadgeDetail: NextPage = () => {
   return (
     <div id="badge-detail">
       <Head>
-        <title>QRdrop POAP</title>
+        <title>BADGE protocol</title>
         <meta name="description" content="" />
         <link rel="icon" href="/favicon.ico" />
       </Head>

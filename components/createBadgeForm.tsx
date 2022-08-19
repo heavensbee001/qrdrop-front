@@ -91,10 +91,14 @@ export default function CreateBadgeForm({
         <div className="text-right col-span-2 pl-4 -mr-6 flex items-center max-h-[240px] overflow-y-scroll h-[200px]">
           <div
             className="h-full w-full"
-            style={{
-              backgroundImage: "url(/images/img-bg.svg)",
-              backgroundSize: "20% 20%",
-            }}
+            style={
+              !formData.uri
+                ? {
+                    backgroundImage: "url(/images/img-bg.svg)",
+                    backgroundSize: "20% 20%",
+                  }
+                : {}
+            }
           >
             {formData.uri && (
               <img src={`${formData.uri}`} alt="cursor" className="" />

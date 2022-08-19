@@ -23,13 +23,13 @@ const Home: NextPage = () => {
   return (
     <div className={styles.container}>
       <Head>
-        <title>QRdrop</title>
+        <title>BADGE protocol</title>
         <meta name="description" content="" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <section className="relative max-w-sm w-screen-sm mx-auto pt-96 mt-8 mb-12">
-        <Image src="/images/qrdrop.svg" alt="QRdrop" layout="fill" />
+      <section className="relative w-[90%] pt-24 md:pt-12 pb-12 md:w-[70%] mx-auto mt-8 mb-12">
+        <img src="/images/main_title.svg" alt="BADGE protocol" />
       </section>
       <div
         className={`relative w-4/5 h-12 flex mx-auto ${
@@ -63,11 +63,11 @@ const Home: NextPage = () => {
           >
             {!activeForm && (
               <p
-                className={`w-full ease-in-out duration-200 mt-2 mb-4 text-center ${
+                className={`w-full ease-in-out duration-200 mt-2 text-center ${
                   accountReady ? "text-orange" : "text-gray-300"
                 }`}
               >
-                Create POAP
+                Create BADGE
               </p>
             )}
             <div className={`overflow-hidden ${activeForm ? "h-full" : "h-0"}`}>
