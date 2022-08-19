@@ -29,6 +29,7 @@ const BadgeDetail: NextPage = () => {
   });
   const [nftExistsLoaded, setNftExistsLoaded] = useState(false);
   const [nftExists, setNftExists] = useState(false);
+  const [nftActive, setNftActive] = useState(false);
 
   useEffect(() => {
     if (router.query.badgeId) setBadgeId(router.query.badgeId.toString());
@@ -42,6 +43,20 @@ const BadgeDetail: NextPage = () => {
       console.log("Success", data);
     },
   });
+
+  const setCreatorNFTActive = useContractWrite(
+    contractParams,
+    "setCreatorNFTActive",
+    {
+      onError(error) {
+        console.log("Error", error);
+      },
+      onSuccess(data) {
+        setNftActive(!nftActive);
+        console.log("Success", data);
+      },
+    }
+  );
 
   const isCreator = useContractRead(contractParams, "isCreator", {
     args: [badgeId, account.data?.address],
@@ -65,6 +80,21 @@ const BadgeDetail: NextPage = () => {
     },
   });
 
+  const getCreatorNFTActive = useContractRead(
+    contractParams,
+    "getCreatorNFTActive",
+    {
+      args: [badgeId],
+      onError(error) {
+        console.log("Error", error);
+      },
+      onSuccess(data) {
+        setNftActive(!!data);
+        console.log("Success", data);
+      },
+    }
+  );
+
   const getAddressNFTInCollection = useContractRead(
     contractParams,
     "getAddressNFTInCollection",
@@ -85,6 +115,11 @@ const BadgeDetail: NextPage = () => {
   function handleClickClaim() {
     if (!badgeId) return;
     makeBadgeNFT.write({ args: badgeId });
+  }
+
+  function handleActiveClick() {
+    if (!badgeId) return;
+    setCreatorNFTActive.write({ args: [badgeId, !nftActive] });
   }
 
   const parseUri = (dataURI: Result) => {
@@ -130,16 +165,42 @@ const BadgeDetail: NextPage = () => {
               </h2>
             )}
             <div className="flex flex-col items-center">
+              {addressIsCreator && (
+                <div className="w-[300px] flex items-center mb-3 justify-end">
+                  <span className="mr-3 text-sm font-medium text-gray-900 dark:text-gray-300">
+                    {nftActive ? "Disable claims" : "Enable claims"}
+                  </span>
+                  <label
+                    htmlFor="default-toggle"
+                    className="inline-flex relative items-center cursor-pointer"
+                  >
+                    <input
+                      type="checkbox"
+                      checked={nftActive}
+                      id="default-toggle"
+                      className="sr-only peer"
+                      onClick={handleActiveClick}
+                    />
+                    <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-pink"></div>
+                  </label>
+                </div>
+              )}
               {nftMetadata.image && (
                 <img src={nftMetadata.image} className="w-[300px] mb-6" />
               )}
               {!nftExists && nftExistsLoaded && (
-                <button
-                  onClick={handleClickClaim}
-                  className="bg-pink text-white w-48 py-2 mb-2 px-12 roboto-font"
-                >
-                  Claim Badge
-                </button>
+                <>
+                  {nftActive ? (
+                    <button
+                      onClick={handleClickClaim}
+                      className="bg-pink text-white w-48 py-2 mb-2 px-12 roboto-font"
+                    >
+                      Claim Badge
+                    </button>
+                  ) : (
+                    <p className="mb-2">Badge claiming has expired</p>
+                  )}
+                </>
               )}
             </div>
             {addressIsCreator && (
