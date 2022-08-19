@@ -28,7 +28,7 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <section className="relative w-[90%] pt-24 md:pt-12 pb-12 md:w-[70%] mx-auto mt-8 mb-12">
+      <section className="relative w-[90%] pt-24 md:pt-12 pb-20 md:w-[70%] mx-auto mt-8 mb-12">
         <img src="/images/main_title.svg" alt="BADGE protocol" />
       </section>
       <div

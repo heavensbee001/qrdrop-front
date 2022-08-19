@@ -64,47 +64,53 @@ export const ConnectButtonCustom: NextComponentType = () => {
               }
 
               return (
-                <div style={{ display: "flex", gap: 12 }}>
-                  <button
-                    onClick={openChainModal}
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                    }}
-                    type="button"
-                  >
-                    {chain.hasIcon && (
-                      <div
-                        style={{
-                          background: chain.iconBackground,
-                          width: 12,
-                          height: 12,
-                          borderRadius: 999,
-                          overflow: "hidden",
-                          marginRight: 4,
-                        }}
-                      >
-                        {chain.iconUrl && (
-                          <img
-                            alt={chain.name ?? "Chain icon"}
-                            src={chain.iconUrl}
-                            style={{
-                              width: 12,
-                              height: 12,
-                            }}
-                          />
-                        )}
-                      </div>
-                    )}
-                    {chain.name}
-                  </button>
+                <div className="w-full fixed top-0 left-0 bg-white px-4 py-3 shadow-md">
+                  <div className="flex w-full max-w-2xl mx-auto">
+                    <button
+                      onClick={openChainModal}
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                      }}
+                      type="button"
+                    >
+                      {chain.hasIcon && (
+                        <div
+                          style={{
+                            background: chain.iconBackground,
+                            width: 24,
+                            height: 24,
+                            borderRadius: 999,
+                            overflow: "hidden",
+                            marginRight: 4,
+                          }}
+                        >
+                          {chain.iconUrl && (
+                            <img
+                              alt={chain.name ?? "Chain icon"}
+                              src={chain.iconUrl}
+                              style={{
+                                width: 24,
+                                height: 24,
+                              }}
+                            />
+                          )}
+                        </div>
+                      )}
+                      {chain.name}
+                    </button>
 
-                  <button onClick={openAccountModal} type="button">
-                    {account.displayName}
-                    {account.displayBalance
+                    <button
+                      onClick={openAccountModal}
+                      type="button"
+                      className="ml-auto"
+                    >
+                      {account.displayName}
+                      {/* {account.displayBalance
                       ? ` (${account.displayBalance})`
-                      : ""}
-                  </button>
+                      : ""} */}
+                    </button>
+                  </div>
                 </div>
               );
             })()}
