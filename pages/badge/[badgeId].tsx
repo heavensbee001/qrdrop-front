@@ -36,10 +36,10 @@ const BadgeDetail: NextPage = () => {
   }, [router.query.badgeId]);
 
   const makeBadgeNFT = useContractWrite(contractParams, "makeABadgeNFT", {
-    onError(error) {
+    onError(error: any) {
       console.log("Error", error);
     },
-    onSuccess(data) {
+    onSuccess(data: any) {
       console.log("Success", data);
     },
   });
@@ -48,10 +48,10 @@ const BadgeDetail: NextPage = () => {
     contractParams,
     "setCreatorNFTActive",
     {
-      onError(error) {
+      onError(error: any) {
         console.log("Error", error);
       },
-      onSuccess(data) {
+      onSuccess(data: any) {
         setNftActive(!nftActive);
         console.log("Success", data);
       },
@@ -60,10 +60,10 @@ const BadgeDetail: NextPage = () => {
 
   const isCreator = useContractRead(contractParams, "isCreator", {
     args: [badgeId, account.data?.address],
-    onError(error) {
+    onError(error: any) {
       console.log("Error", error);
     },
-    onSuccess(data) {
+    onSuccess(data: any) {
       setAddressIsCreator(!!data);
       console.log("Success --->", data);
     },
@@ -71,10 +71,10 @@ const BadgeDetail: NextPage = () => {
 
   const getCreatorNFT = useContractRead(contractParams, "getCreatorNFT", {
     args: [badgeId],
-    onError(error) {
+    onError(error: any) {
       console.log("Error", error);
     },
-    onSuccess(data) {
+    onSuccess(data: Result) {
       setNftMetadata(parseUri(data));
       console.log("Success", parseUri(data));
     },
@@ -85,10 +85,10 @@ const BadgeDetail: NextPage = () => {
     "getCreatorNFTActive",
     {
       args: [badgeId],
-      onError(error) {
+      onError(error: any) {
         console.log("Error", error);
       },
-      onSuccess(data) {
+      onSuccess(data: any) {
         setNftActive(!!data);
         console.log("Success", data);
       },
@@ -100,11 +100,11 @@ const BadgeDetail: NextPage = () => {
     "getAddressNFTInCollection",
     {
       args: [badgeId, account.data?.address],
-      onError(error) {
+      onError(error: any) {
         setNftExists(false);
         console.log("Error", error);
       },
-      onSuccess(data) {
+      onSuccess(data: any) {
         setNftExists(!!Number(data));
         setNftExistsLoaded(true);
         console.log("Success", data);

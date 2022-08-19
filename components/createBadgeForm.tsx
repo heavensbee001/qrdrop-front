@@ -26,10 +26,10 @@ export default function CreateBadgeForm({
     },
     "createCreatorNFT",
     {
-      onError(error) {
+      onError(error: any) {
         console.log("Error", error);
       },
-      onSuccess(data) {
+      onSuccess(data: any) {
         console.log("Success", data);
       },
     }
